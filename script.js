@@ -40,7 +40,7 @@ function addUpdateItem(e) {
     return;
   }
 
-  if (updatingItem) {
+  if (updatingItem && !storageManager.getItem(itemToAdd.value)) {
     storageManager.updateItem(updatingItem, itemToAdd.value);
     const items = document.querySelectorAll('.items li');
     const submitBtn = document.querySelector('#submitBtn');
@@ -58,6 +58,9 @@ function addUpdateItem(e) {
   } else if (!storageManager.getItem(itemToAdd.value)) {
     storageManager.saveItem(itemToAdd.value);
     addItemHTML(itemToAdd.value);
+  } else {
+    alert('Duplicated item');
+    return;
   }
   fadeIn();
 
